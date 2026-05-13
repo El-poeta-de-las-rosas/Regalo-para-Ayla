@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<!-- saved from url=(0061)https://corazon-animado-1.preview.emergentagent.com/love.html -->
+<html lang="es"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Love Heart — Para Ayla 💖</title>
+<link href="./Love Heart — Para Ayla 💖_files/css2" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+html,body{height:100%;overflow:hidden;font-family:'Poppins',sans-serif;background:#000;color:#fff;-webkit-font-smoothing:antialiased;cursor:none;}
+canvas#canvas{display:block;position:fixed;inset:0;}
+canvas#cursorCv{position:fixed;inset:0;pointer-events:none;z-index:9999;}
+
+.title{position:absolute;top:24px;width:100%;text-align:center;z-index:10;pointer-events:none;}
+.title h1{font-family:'Dancing Script',cursive;font-size:clamp(34px,5vw,54px);font-weight:700;
+  background:linear-gradient(90deg,#ff5fa2,#ff2e8a,#ff8fb8,#ff2e8a);background-size:200% auto;
+  -webkit-background-clip:text;background-clip:text;color:transparent;text-shadow:0 0 28px rgba(255,46,138,.5);
+  animation:shine 4s linear infinite;}
+.title p{font-size:13px;letter-spacing:3px;text-transform:uppercase;opacity:.6;margin-top:4px;}
+@keyframes shine{to{background-position:200% center;}}
+
+.countdown{position:absolute;top:130px;width:100%;display:flex;justify-content:center;align-items:center;flex-direction:column;gap:8px;z-index:10;pointer-events:none;}
+.cd-label{font-size:10px;letter-spacing:4px;text-transform:uppercase;opacity:.55;font-weight:500;}
+.cd-boxes{display:flex;gap:10px;}
+.cd-box{position:relative;min-width:62px;padding:10px 8px 8px;background:linear-gradient(180deg,rgba(40,12,30,.7),rgba(20,6,18,.85));border:1px solid rgba(255,143,184,.35);border-radius:12px;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);box-shadow:0 6px 20px rgba(255,46,138,.18),inset 0 1px 0 rgba(255,255,255,.08);text-align:center;}
+.cd-box::before{content:"";position:absolute;left:8px;right:8px;top:50%;height:1px;background:rgba(255,143,184,.18);pointer-events:none;}
+.cd-num{font-family:'Dancing Script',cursive;font-size:30px;font-weight:700;line-height:1;background:linear-gradient(180deg,#ffd6e7,#ff5fa2);-webkit-background-clip:text;background-clip:text;color:transparent;text-shadow:0 0 22px rgba(255,46,138,.5);}
+.cd-unit{font-size:9px;letter-spacing:2.5px;text-transform:uppercase;opacity:.55;margin-top:4px;}
+.cd-hoy{font-family:'Dancing Script',cursive;font-size:34px;background:linear-gradient(90deg,#ff8fb8,#ff2e8a,#ff8fb8);background-size:200% auto;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shine 3s linear infinite;}
+@media (max-width:520px){.cd-box{min-width:52px;padding:8px 6px 6px;}.cd-num{font-size:24px;}}
+
+.btn{position:absolute;z-index:20;padding:11px 16px;font-family:inherit;font-size:13px;font-weight:500;
+  letter-spacing:.5px;border-radius:999px;background:rgba(20,8,20,.55);color:#fff;
+  border:1px solid rgba(255,143,184,.35);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  cursor:none;transition:transform .2s ease,background .2s ease,box-shadow .25s ease;
+  box-shadow:0 4px 24px rgba(255,46,138,.15);}
+.btn:hover{transform:translateY(-2px);background:rgba(40,12,30,.7);box-shadow:0 6px 28px rgba(255,46,138,.35);}
+.btn:active{transform:translateY(0);}
+#menuBtn{left:20px;top:20px;}
+#msgBtn{left:20px;top:74px;}
+#letterBtn{right:20px;top:20px;}
+#songsBtn{right:20px;top:74px;}
+#dnBtn{right:20px;top:128px;width:42px;padding:11px 0;text-align:center;}
+
+.panel{position:absolute;left:20px;top:128px;width:280px;display:none;flex-direction:column;gap:14px;padding:18px;
+  background:rgba(16,6,18,.78);border:1px solid rgba(255,143,184,.25);border-radius:18px;
+  backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
+  box-shadow:0 18px 50px rgba(0,0,0,.5),0 0 0 1px rgba(255,255,255,.04) inset;z-index:20;
+  animation:panelIn .35s cubic-bezier(.2,.9,.3,1);max-height:calc(100vh - 150px);overflow-y:auto;}
+.panel.open{display:flex;}
+@keyframes panelIn{from{opacity:0;transform:translateY(-6px) scale(.98);}to{opacity:1;transform:translateY(0) scale(1);}}
+.panel-section{display:flex;flex-direction:column;gap:6px;}
+.panel label{font-size:11px;letter-spacing:1.5px;text-transform:uppercase;opacity:.7;}
+.panel input[type=color]{width:100%;height:36px;border:none;background:transparent;border-radius:10px;cursor:none;}
+.panel input[type=color]::-webkit-color-swatch{border:1px solid rgba(255,255,255,.15);border-radius:10px;}
+.panel input[type=range]{width:100%;accent-color:#ff2e8a;cursor:none;}
+.panel input[type=date]{padding:8px;background:rgba(0,0,0,.4);color:#fff;border:1px solid rgba(255,143,184,.25);
+  border-radius:8px;font-family:inherit;font-size:12px;cursor:none;}
+.panel button.action{padding:9px 12px;background:rgba(255,46,138,.18);color:#fff;border:1px solid rgba(255,46,138,.5);
+  border-radius:10px;font-family:inherit;font-size:12px;cursor:none;transition:background .2s;}
+.panel button.action:hover{background:rgba(255,46,138,.35);}
+.divider{height:1px;background:linear-gradient(90deg,transparent,rgba(255,143,184,.4),transparent);margin:2px 0;}
+
+.songs-panel{position:absolute;right:20px;top:182px;width:320px;max-width:calc(100vw - 40px);
+  max-height:calc(100vh - 210px);overflow-y:auto;display:none;flex-direction:column;gap:8px;padding:20px 18px;
+  background:rgba(16,6,18,.82);border:1px solid rgba(255,143,184,.3);border-radius:18px;
+  backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);box-shadow:0 18px 50px rgba(0,0,0,.55);z-index:20;
+  animation:panelIn .35s cubic-bezier(.2,.9,.3,1);}
+.songs-panel.open{display:flex;}
+.songs-panel::-webkit-scrollbar,.panel::-webkit-scrollbar{width:5px;}
+.songs-panel::-webkit-scrollbar-thumb,.panel::-webkit-scrollbar-thumb{background:linear-gradient(#ff2e8a,#ff8fb8);border-radius:10px;}
+.songs-panel h3{font-family:'Dancing Script',cursive;font-size:24px;font-weight:700;text-align:center;
+  background:linear-gradient(90deg,#ff8fb8,#ff2e8a,#ff8fb8);-webkit-background-clip:text;background-clip:text;
+  color:transparent;line-height:1.15;margin-bottom:2px;}
+.songs-panel .subtitle{font-size:9.5px;text-align:center;opacity:.5;letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;}
+.song-item{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:11px;
+  background:rgba(0,0,0,.35);border:1px solid rgba(255,143,184,.15);cursor:none;
+  transition:background .2s,border-color .2s,transform .18s;}
+.song-item:hover{background:rgba(255,46,138,.18);border-color:rgba(255,143,184,.55);transform:translateX(-3px);}
+.song-item.playing{background:rgba(255,46,138,.28);border-color:#ff2e8a;box-shadow:0 0 18px rgba(255,46,138,.35);}
+.song-item .num{font-size:11px;opacity:.45;width:18px;flex-shrink:0;font-variant-numeric:tabular-nums;}
+.song-item .name{flex:1;font-size:13px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.song-item .icon{font-size:13px;color:#ff8fb8;flex-shrink:0;}
+.song-item.playing .icon{color:#fff;}
+.song-item .eq{display:none;width:14px;height:14px;align-items:flex-end;justify-content:space-between;gap:2px;flex-shrink:0;}
+.song-item.playing .eq{display:flex;}
+.song-item.playing .icon{display:none;}
+.song-item .eq span{width:2px;background:#fff;border-radius:2px;animation:eq 1s ease-in-out infinite;}
+.song-item .eq span:nth-child(1){animation-delay:0s;height:60%;}
+.song-item .eq span:nth-child(2){animation-delay:.15s;height:100%;}
+.song-item .eq span:nth-child(3){animation-delay:.3s;height:40%;}
+.song-item .eq span:nth-child(4){animation-delay:.45s;height:80%;}
+@keyframes eq{0%,100%{transform:scaleY(.3);}50%{transform:scaleY(1);}}
+
+.player{position:absolute;left:20px;bottom:20px;z-index:25;width:340px;max-width:calc(100vw - 40px);
+  padding:14px 16px 18px;display:none;flex-direction:column;gap:10px;
+  background:rgba(16,6,18,.85);border:1px solid rgba(255,143,184,.3);border-radius:16px;
+  backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);box-shadow:0 18px 50px rgba(0,0,0,.55);
+  animation:panelIn .35s cubic-bezier(.2,.9,.3,1);}
+.player.open{display:flex;}
+.player-row{display:flex;align-items:center;gap:12px;}
+.player .cover{width:48px;height:48px;flex-shrink:0;border-radius:50%;
+  background:radial-gradient(circle at 30% 30%,#ff8fb8,#ff2e8a 60%,#5a0e34);background-size:cover;background-position:center;
+  box-shadow:0 0 18px rgba(255,46,138,.6),inset 0 0 12px rgba(255,255,255,.2);
+  animation:spin 8s linear infinite paused;}
+.player.playing .cover{animation-play-state:running;}
+@keyframes spin{to{transform:rotate(360deg);}}
+.player .info{flex:1;min-width:0;}
+.player .title-song{font-size:13px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.player .artist{font-size:11px;opacity:.6;}
+.player .controls{display:flex;gap:4px;align-items:center;}
+.player button{width:32px;height:32px;display:flex;align-items:center;justify-content:center;
+  background:transparent;border:none;color:#fff;font-size:14px;cursor:none;border-radius:50%;
+  transition:background .2s,transform .15s;}
+.player button:hover{background:rgba(255,143,184,.2);}
+.player button:active{transform:scale(.92);}
+.player .play{background:#ff2e8a;width:36px;height:36px;box-shadow:0 0 16px rgba(255,46,138,.6);}
+.player .play:hover{background:#ff5fa2;}
+.player .progress{position:relative;height:4px;background:rgba(255,255,255,.12);border-radius:2px;cursor:none;overflow:hidden;}
+.player .progress .fill{position:absolute;left:0;top:0;height:100%;background:linear-gradient(90deg,#ff5fa2,#ff2e8a);border-radius:2px;width:0;transition:width .25s linear;box-shadow:0 0 8px #ff2e8a;}
+.player .times{display:flex;justify-content:space-between;font-size:10px;opacity:.55;margin-top:-2px;}
+.player .msg{font-size:11px;font-style:italic;opacity:.75;text-align:center;font-family:'Dancing Script',cursive;font-size:16px;color:#ffb3cf;min-height:18px;}
+
+.letter-panel{position:fixed;inset:0;display:none;justify-content:center;align-items:center;
+  background:radial-gradient(ellipse at center,rgba(60,8,30,.6),rgba(0,0,0,.88));
+  backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);z-index:50;padding:20px;}
+.letter-panel.open{display:flex;animation:fadeIn .4s ease;}
+@keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
+.letter{position:relative;width:100%;max-width:560px;max-height:82vh;overflow-y:auto;
+  background:linear-gradient(180deg,#fff5fa 0%,#ffe8f1 100%);padding:42px 38px;border-radius:18px;color:#3a1024;
+  box-shadow:0 30px 90px rgba(0,0,0,.6),0 0 0 1px rgba(255,143,184,.4);
+  animation:letterIn .55s cubic-bezier(.2,.9,.3,1.1);}
+@keyframes letterIn{from{opacity:0;transform:translateY(20px) scale(.94) rotate(-1deg);}to{opacity:1;transform:translateY(0) scale(1) rotate(0);}}
+.letter::before{content:"";position:absolute;inset:8px;border:1px dashed rgba(255,46,138,.35);border-radius:12px;pointer-events:none;}
+.letter h2{font-family:'Dancing Script',cursive;font-size:42px;font-weight:700;text-align:center;color:#ff2e8a;margin-bottom:18px;}
+.letter p{font-size:15.5px;line-height:1.75;margin:12px 0;font-weight:300;}
+.letter p strong{color:#ff2e8a;font-weight:600;}
+.letter .sign{margin-top:24px;text-align:right;font-family:'Dancing Script',cursive;font-size:26px;color:#ff2e8a;}
+.letter-close{position:absolute;top:14px;right:14px;width:34px;height:34px;border-radius:50%;
+  background:rgba(255,46,138,.15);border:none;color:#ff2e8a;font-size:18px;cursor:none;
+  display:flex;align-items:center;justify-content:center;transition:background .2s,transform .15s;}
+.letter-close:hover{background:rgba(255,46,138,.3);transform:rotate(90deg);}
+.letter::-webkit-scrollbar{width:6px;}
+.letter::-webkit-scrollbar-thumb{background:linear-gradient(#ff2e8a,#ff8fb8);border-radius:10px;}
+
+.toast{position:fixed;left:50%;bottom:120px;transform:translateX(-50%) translateY(20px);
+  background:rgba(16,6,18,.92);border:1px solid rgba(255,143,184,.5);padding:14px 24px;border-radius:14px;
+  font-family:'Dancing Script',cursive;font-size:22px;color:#ffd6e7;
+  box-shadow:0 10px 40px rgba(255,46,138,.4);opacity:0;pointer-events:none;
+  transition:opacity .5s,transform .5s;z-index:100;text-align:center;max-width:90vw;}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+
+#ytWrap{position:fixed;left:-9999px;top:-9999px;width:1px;height:1px;opacity:0;pointer-events:none;}
+
+/* ============ MENSAJES DE APOYO (añadido) ============ */
+.support-panel{position:fixed;inset:0;display:none;justify-content:center;align-items:center;
+  background:radial-gradient(ellipse at center,rgba(60,8,30,.55),rgba(0,0,0,.85));
+  backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);z-index:55;padding:20px;}
+.support-panel.open{display:flex;animation:fadeIn .4s ease;}
+.support-card{position:relative;width:100%;max-width:480px;padding:48px 38px 38px;border-radius:22px;
+  background:linear-gradient(160deg,rgba(40,10,28,.92) 0%,rgba(20,4,16,.95) 100%);
+  border:1px solid rgba(255,143,184,.45);
+  box-shadow:0 30px 90px rgba(0,0,0,.65),0 0 60px rgba(255,46,138,.25),inset 0 1px 0 rgba(255,255,255,.06);
+  text-align:center;animation:letterIn .5s cubic-bezier(.2,.9,.3,1.1);}
+.support-card::before{content:"";position:absolute;inset:10px;border:1px dashed rgba(255,143,184,.25);border-radius:16px;pointer-events:none;}
+.support-card .heart-deco{font-family:'Dancing Script',cursive;font-size:48px;color:#ff5fa2;
+  text-shadow:0 0 24px rgba(255,46,138,.55);margin-bottom:6px;}
+.support-card .label{font-size:10px;letter-spacing:4px;text-transform:uppercase;opacity:.55;margin-bottom:18px;}
+.support-msg{font-family:'Dancing Script',cursive;font-weight:700;font-size:clamp(28px,4.5vw,40px);line-height:1.25;
+  background:linear-gradient(180deg,#ffd6e7,#ff5fa2 70%,#ff2e8a);-webkit-background-clip:text;background-clip:text;
+  color:transparent;text-shadow:0 0 28px rgba(255,46,138,.35);min-height:90px;
+  padding:8px 4px;transition:opacity .35s ease,transform .35s ease;}
+.support-msg.swap{opacity:0;transform:translateY(8px);}
+.support-actions{display:flex;gap:10px;justify-content:center;margin-top:24px;flex-wrap:wrap;}
+.support-actions button{padding:11px 20px;font-family:inherit;font-size:13px;font-weight:500;letter-spacing:.5px;
+  border-radius:999px;cursor:none;transition:transform .2s,background .2s,box-shadow .25s;border:1px solid rgba(255,143,184,.45);
+  color:#fff;}
+.support-actions .next{background:rgba(255,46,138,.25);box-shadow:0 4px 24px rgba(255,46,138,.3);}
+.support-actions .next:hover{background:rgba(255,46,138,.45);transform:translateY(-2px);box-shadow:0 6px 30px rgba(255,46,138,.55);}
+.support-actions .close{background:rgba(20,8,20,.55);}
+.support-actions .close:hover{background:rgba(40,12,30,.8);transform:translateY(-2px);}
+.support-counter{font-size:10px;letter-spacing:3px;text-transform:uppercase;opacity:.45;margin-top:14px;}
+
+@media (max-width:520px){
+  .panel,.songs-panel,.player{width:calc(100vw - 40px);}
+  .songs-panel{right:20px;}
+  .title h1{font-size:34px;}
+  .letter{padding:32px 24px;}
+  .letter h2{font-size:34px;}
+  .support-card{padding:38px 22px 28px;}
+  .support-card .heart-deco{font-size:38px;}
+  html,body{cursor:auto;}
+  canvas#cursorCv{display:none;}
+}
+</style>
+<script type="text/javascript" id="www-widgetapi-script" src="./Love Heart — Para Ayla 💖_files/www-widgetapi.js.descarga" async=""></script><script src="./Love Heart — Para Ayla 💖_files/iframe_api"></script></head>
+<body>
+
+<canvas id="canvas" width="1920" height="991" style="width: 1920px; height: 991px;"></canvas>
+<canvas id="cursorCv" width="1920" height="991" style="width: 1920px; height: 991px;"></canvas>
+
+<div class="title">
+  <h1>Love Heart</h1>
+  <p>· para ayla ·</p>
+</div>
+<div class="countdown" id="countdown"><div class="cd-label">faltan para verte</div><div class="cd-boxes"><div class="cd-box"><div class="cd-num">02</div><div class="cd-unit">días</div></div><div class="cd-box"><div class="cd-num">05</div><div class="cd-unit">horas</div></div><div class="cd-box"><div class="cd-num">20</div><div class="cd-unit">min</div></div><div class="cd-box"><div class="cd-num">00</div><div class="cd-unit">seg</div></div></div></div>
+
+<button class="btn" id="menuBtn" onclick="toggleMenu()">✦ Menú</button>
+<button class="btn" id="msgBtn" onclick="openSupport()" data-testid="support-messages-btn">💬 Mensajes de apoyo</button>
+<button class="btn" id="letterBtn" onclick="openLetter()">💌 Carta</button>
+<button class="btn" id="songsBtn" onclick="toggleSongs()">🎵 Canciones</button>
+<button class="btn" id="dnBtn" onclick="toggleTheme()" title="Día/Noche">🌙</button>
+
+<div class="panel" id="panel">
+  <div class="panel-section"><label>💓 Color del corazón</label><input type="color" id="heartColor" value="#ff2e8a"></div>
+  <div class="panel-section"><label>🌌 Color de fondo</label><input type="color" id="bgColor" value="#08010c"></div>
+  <div class="panel-section"><label>🔤 Color de la letra A</label><input type="color" id="letterColor" value="#ffd6e7"></div>
+  <div class="panel-section"><label>⚡ Intensidad del latido</label><input type="range" id="beatRange" min="0" max="100" value="60"></div>
+  <div class="divider"></div>
+  <div class="panel-section"><label>⏳ Día que nos vemos</label><input type="date" id="meetDate"></div>
+  <div class="divider"></div>
+  <div class="panel-section"><button class="action" onclick="savePNG()">💾 Guardar como imagen</button></div>
+  <div class="panel-section"><button class="action" onclick="toggleAyla()">💃 Modo "Ayla" (o doble click en el corazón)</button></div>
+</div>
+
+<div class="songs-panel" id="songsPanel">
+  <h3>Canciones que cobraron sentido<br>desde que te conocí</h3>
+  <div class="subtitle">· toca una para escucharla ·</div>
+  <div id="songsList"><div class="song-item " data-i="0">
+    <span class="num">01</span>
+    <span class="name">I Love U</span><span class="icon">▶</span>
+    <span class="eq"><span></span><span></span><span></span><span></span></span></div><div class="song-item " data-i="1">
+    <span class="num">02</span>
+    <span class="name">Amor Verdadero</span><span class="icon">▶</span>
+    <span class="eq"><span></span><span></span><span></span><span></span></span></div><div class="song-item " data-i="2">
+    <span class="num">03</span>
+    <span class="name">Esperando Pa' Verte</span><span class="icon">▶</span>
+    <span class="eq"><span></span><span></span><span></span><span></span></span></div><div class="song-item " data-i="3">
+    <span class="num">04</span>
+    <span class="name">Te Quiero Contar</span><span class="icon">▶</span>
+    <span class="eq"><span></span><span></span><span></span><span></span></span></div><div class="song-item " data-i="4">
+    <span class="num">05</span>
+    <span class="name">Tal Para Cual</span><span class="icon">▶</span>
+    <span class="eq"><span></span><span></span><span></span><span></span></span></div><div class="song-item " data-i="5">
+    <span class="num">06</span>
+    <span class="name">Así Es El Amor</span><span class="icon">▶</span>
+    <span class="eq"><span></span><span></span><span></span><span></span></span></div><div class="song-item " data-i="6">
+    <span class="num">07</span>
+    <span class="name">Cara Bonita</span><span class="icon">▶</span>
+    <span class="eq"><span></span><span></span><span></span><span></span></span></div></div>
+</div>
+
+<div class="player" id="player">
+  <div class="player-row">
+    <div class="cover" id="cover"></div>
+    <div class="info">
+      <div class="title-song" id="nowTitle">—</div>
+      <div class="artist">Kid Flex</div>
+    </div>
+    <div class="controls">
+      <button onclick="prevSong()" title="Anterior">⏮</button>
+      <button class="play" id="playBtn" onclick="togglePlay()">▶</button>
+      <button onclick="nextSong()" title="Siguiente">⏭</button>
+    </div>
+  </div>
+  <div class="progress" id="progress" onclick="seek(event)"><div class="fill" id="progFill"></div></div>
+  <div class="times"><span id="curTime">0:00</span><span id="durTime">0:00</span></div>
+  <div class="msg" id="songMsg"></div>
+</div>
+
+<div id="ytWrap"><iframe id="ytPlayer" frameborder="0" allowfullscreen="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" title="YouTube video player" width="1" height="1" src="./Love Heart — Para Ayla 💖_files/saved_resource.html"></iframe></div>
+
+<div class="letter-panel" id="letterPanel" onclick="closeLetterBg(event)">
+  <div class="letter" onclick="event.stopPropagation()">
+    <button class="letter-close" onclick="closeLetter()">✕</button>
+    <h2>Para ti ❤️</h2>
+    <p>Hola amor, este pequeño regalo es para ti antes de vernos.</p>
+    <p>Quería darte algo que no se perdiera en una conversación: algo que pudieras abrir cuando me echaras de menos, y que te recordara, sin que yo dijera nada, lo mucho que ocupas mi cabeza.</p>
+    <p><strong>Ayla</strong>, eres preciosa por dentro y por fuera, con un corazón de oro que valoro muchísimo. Eres de esas personas que cambian el aire de una habitación al entrar, que te hacen sentir tranquilo y vivo a la vez.</p>
+    <p>Me gusta cómo piensas, cómo te ríes, cómo te enfadas un poquito cuando algo te importa. Me gusta el sonido de tu voz cuando me cuentas tu día, y el silencio cómodo que hay entre nosotros cuando ya no hace falta decir nada.</p>
+    <p>Si tengo que elegir un color favorito, es el <strong>azul de tus ojos</strong>. Ese azul que me mira y me deja sin escudos, como si supieras todo lo que pienso antes de que lo diga.</p>
+    <p>Me gusta lo lista que eres y lo soñadora que sigues siendo, aunque a veces el mundo se ponga difícil. Y quiero que sepas algo: <strong>deseo de verdad saber cómo te sientes</strong>, lo que piensas, lo que te ilusiona, lo que te asusta. Quiero conocerte despacio, escucharte de verdad, entender tu mundo desde dentro.</p>
+    <p>Yo quiero estar donde tú estés. Acompañarte, cuidarte, hacerte reír cuando estés triste y estar a tu lado cuando todo vaya bien. Quiero ser tu sitio seguro, ese al que volver siempre, no importa lo lejos que vayas.</p>
+    <p>No es solo un deseo, es una decisión: <strong>estar contigo</strong>. Elegirte cada día, también los días feos, también cuando todo sea normal y aburrido y bonito a la vez.</p>
+    <p>Y dejarte volar libre, mientras yo vuelo contigo. Porque amarte no es retenerte, es ser tu casa cuando quieras volver, y tu cielo cuando quieras irte lejos.</p>
+    <p>Faltan pocos días para verte. Y cada uno que pasa lo cuento porque sé que al final de la espera estás tú, esperándome con esa sonrisa tuya que me desordena entero.</p>
+    <p>Gracias por existir, gracias por aparecer, gracias por dejarme quererte así.</p>
+    <p>Te quiero, <strong>Ayla</strong>. Más de lo que cabe en una carta, más de lo que sabré decir nunca en voz alta.</p>
+    <div class="sign">— Tuyo, siempre 💖</div>
+  </div>
+</div>
+
+<!-- ============ PANEL MENSAJES DE APOYO (añadido) ============ -->
+<div class="support-panel" id="supportPanel" onclick="closeSupportBg(event)">
+  <div class="support-card" onclick="event.stopPropagation()" data-testid="support-card">
+    <div class="heart-deco">💖</div>
+    <div class="label">· un mensaje para ti ·</div>
+    <div class="support-msg" id="supportMsg" data-testid="support-message">Me encantas, mi niña preciosa.</div>
+    <div class="support-actions">
+      <button class="next" onclick="nextSupport()" data-testid="support-next-btn">✨ Otro mensaje</button>
+      <button class="close" onclick="closeSupport()" data-testid="support-close-btn">Cerrar</button>
+    </div>
+    <div class="support-counter" id="supportCounter">1 / 50</div>
+  </div>
+</div>
+
+<div class="toast" id="toast">Doble click en el corazón para algo especial 💕</div>
+
+<script>
+/* =================== ESTADO =================== */
+let heartColor="#ff2e8a", bgColor="#08010c", letterColor="#ffd6e7", beatStrength=0.6;
+let aylaMode=false, theme="night";
+let mouseX=0, mouseY=0, mouseTargetX=0, mouseTargetY=0;
+let mousePX=0, mousePY=0;
+
+const songs=[
+  {id:"IbP5VIHpr70", name:"I Love U",            msg:"esto fue lo primero que pensé al verte"},
+  {id:"NenpdYVqFmw", name:"Amor Verdadero",       msg:"contigo entendí lo que es de verdad"},
+  {id:"leGDzhRCnGI", name:"Esperando Pa' Verte",  msg:"cada día cuenta hasta volver a verte"},
+  {id:"4FxNkCgQqgA", name:"Te Quiero Contar",     msg:"hay tanto que aún quiero decirte"},
+  {id:"FMB7uP0-iO4", name:"Tal Para Cual",        msg:"como si nos hubieran hecho juntos"},
+  {id:"105jo1EE3yw", name:"Así Es El Amor",       msg:"así, exactamente así, te quiero"},
+  {id:"R2Re8_3HaAA", name:"Cara Bonita",          msg:"tu cara me cambia el día entero"}
+];
+let songIndex=-1;
+
+/* =================== MENSAJES DE APOYO (añadido) =================== */
+const supportMessages=[
+  "Me encantas, mi niña preciosa.",
+  "Tú puedes con todo, mi amor.",
+  "Eres la persona más bonita que conozco.",
+  "Nunca olvides lo fuerte que eres, princesa.",
+  "Tienes un corazón de oro, mi vida.",
+  "Eres mi lugar favorito en el mundo.",
+  "Tu sonrisa me cambia el día entero.",
+  "Eres más valiente de lo que tú crees.",
+  "Cada día contigo es un regalo, amor.",
+  "Eres preciosa por dentro y por fuera.",
+  "Te admiro por todo lo que eres.",
+  "Aunque te sientas pequeña, eres enorme.",
+  "Eres luz, aunque a veces no la veas.",
+  "Mereces todo lo bonito del mundo.",
+  "No estás sola, yo estoy aquí siempre.",
+  "Eres mi calma cuando todo es ruido.",
+  "Tu mirada me dice más que mil palabras.",
+  "Eres la mejor parte de mis días, Ayla.",
+  "Confío en ti más que en nadie, mi amor.",
+  "Eres capaz de todo lo que te propongas.",
+  "Tu existencia ya me hace feliz.",
+  "Gracias por ser exactamente como eres.",
+  "Eres bonita incluso cuando no lo crees.",
+  "Tu fuerza es mi inspiración, princesa.",
+  "Naciste para brillar, mi vida.",
+  "Te quiero con todo lo que soy.",
+  "Eres mi sitio seguro, siempre.",
+  "Aunque el día sea feo, tú lo haces bonito.",
+  "Eres pura magia, mi niña.",
+  "Te elijo a ti todos los días.",
+  "Eres especial de una forma única.",
+  "Nada en este mundo se compara contigo.",
+  "Tus ojos son mi color favorito.",
+  "Eres todo lo que pedí sin saberlo.",
+  "Tu voz me da paz, mi amor.",
+  "Eres más que suficiente, eres todo.",
+  "Cuando dudes de ti, recuerda que yo te creo.",
+  "Eres preciosa hasta despeinada y sin filtros.",
+  "Tu risa es mi canción favorita.",
+  "Eres tan bonita que me cuesta no mirarte.",
+  "Te quiero con tus días buenos y los malos.",
+  "Eres mi persona, mi Ayla.",
+  "Vales muchísimo, no lo olvides nunca.",
+  "Eres el mejor 'sí' que dije en mi vida.",
+  "Tu corazón es lo más bonito que conozco.",
+  "Aunque tropieces, sigues siendo increíble.",
+  "Eres fuerte aunque a veces te rompas.",
+  "Estoy orgulloso de ti, princesa.",
+  "Eres mi razón favorita para sonreír.",
+  "Te quiero hoy, mañana y siempre."
+];
+let supportIndex=0, supportPrev=-1;
+
+function openSupport(){
+  showRandomSupport();
+  document.getElementById("supportPanel").classList.add("open");
+}
+function closeSupport(){document.getElementById("supportPanel").classList.remove("open");}
+function closeSupportBg(e){if(e.target.id==="supportPanel")closeSupport();}
+function showRandomSupport(){
+  let i;
+  if(supportMessages.length<=1){i=0;}
+  else{
+    do{i=Math.floor(Math.random()*supportMessages.length);}while(i===supportPrev);
+  }
+  supportPrev=i; supportIndex=i;
+  const el=document.getElementById("supportMsg");
+  const counter=document.getElementById("supportCounter");
+  el.classList.add("swap");
+  setTimeout(()=>{
+    el.textContent=supportMessages[i];
+    counter.textContent=(i+1)+" / "+supportMessages.length;
+    el.classList.remove("swap");
+  },180);
+}
+function nextSupport(){showRandomSupport();}
+
+/* =================== UI =================== */
+function toggleMenu(){document.getElementById("panel").classList.toggle("open");}
+function toggleSongs(){document.getElementById("songsPanel").classList.toggle("open");}
+function openLetter(){document.getElementById("letterPanel").classList.add("open");}
+function closeLetter(){document.getElementById("letterPanel").classList.remove("open");}
+function closeLetterBg(e){if(e.target.id==="letterPanel")closeLetter();}
+function showToast(text,ms=2800){const t=document.getElementById("toast");t.textContent=text;t.classList.add("show");
+  clearTimeout(window._toastT);window._toastT=setTimeout(()=>t.classList.remove("show"),ms);}
+
+document.getElementById("heartColor").oninput  = e=>heartColor =e.target.value;
+document.getElementById("bgColor").oninput     = e=>bgColor    =e.target.value;
+document.getElementById("letterColor").oninput = e=>letterColor=e.target.value;
+document.getElementById("beatRange").oninput   = e=>beatStrength=+e.target.value/100;
+
+/* Tema día/noche */
+function toggleTheme(){
+  theme = (theme==="night") ? "day" : "night";
+  if(theme==="day"){
+    bgColor="#ffe0ee"; heartColor="#e91e63"; letterColor="#7a0030";
+    document.getElementById("dnBtn").textContent="☀️";
+  } else {
+    bgColor="#08010c"; heartColor="#ff2e8a"; letterColor="#ffd6e7";
+    document.getElementById("dnBtn").textContent="🌙";
+  }
+  document.getElementById("heartColor").value=heartColor;
+  document.getElementById("bgColor").value=bgColor;
+  document.getElementById("letterColor").value=letterColor;
+}
+
+/* Countdown */
+const meetInput=document.getElementById("meetDate");
+const cdEl=document.getElementById("countdown");
+meetInput.value="2026-05-16";
+function updateCountdown(){
+  if(!meetInput.value){cdEl.innerHTML="";return;}
+  const target=new Date(meetInput.value+"T00:00:00");
+  const diff=target-new Date();
+  if(diff<=0){cdEl.innerHTML='<div class="cd-hoy">✨ hoy nos vemos ✨</div>';return;}
+  const d=Math.floor(diff/86400000);
+  const h=Math.floor(diff/3600000)%24;
+  const m=Math.floor(diff/60000)%60;
+  const s=Math.floor(diff/1000)%60;
+  const box=(n,u)=>`<div class="cd-box"><div class="cd-num">${String(n).padStart(2,'0')}</div><div class="cd-unit">${u}</div></div>`;
+  cdEl.innerHTML='<div class="cd-label">faltan para verte</div><div class="cd-boxes">'+box(d,'días')+box(h,'horas')+box(m,'min')+box(s,'seg')+'</div>';
+}
+meetInput.oninput=updateCountdown;
+setInterval(updateCountdown,1000); updateCountdown();
+
+/* Lista canciones */
+function renderSongs(){
+  const el=document.getElementById("songsList");
+  el.innerHTML=songs.map((s,i)=>`<div class="song-item ${i===songIndex?'playing':''}" data-i="${i}">
+    <span class="num">${String(i+1).padStart(2,'0')}</span>
+    <span class="name">${s.name}</span><span class="icon">▶</span>
+    <span class="eq"><span></span><span></span><span></span><span></span></span></div>`).join("");
+  el.querySelectorAll(".song-item").forEach(it=>{it.onclick=()=>playSongAt(+it.dataset.i);});
+}
+renderSongs();
+
+/* =================== YOUTUBE =================== */
+let ytPlayer=null, ytReady=false, pendingSong=null;
+const tag=document.createElement("script"); tag.src="https://www.youtube.com/iframe_api"; document.head.appendChild(tag);
+function onYouTubeIframeAPIReady(){
+  ytPlayer=new YT.Player("ytPlayer",{height:"1",width:"1",
+    playerVars:{autoplay:0,controls:0,disablekb:1,fs:0,modestbranding:1,playsinline:1},
+    events:{
+      onReady:()=>{ytReady=true; if(pendingSong){ytPlayer.loadVideoById(pendingSong); pendingSong=null;}},
+      onStateChange:(e)=>{
+        const playBtn=document.getElementById("playBtn"), playerEl=document.getElementById("player");
+        if(e.data===YT.PlayerState.PLAYING){playBtn.textContent="⏸"; playerEl.classList.add("playing");}
+        else if(e.data===YT.PlayerState.PAUSED){playBtn.textContent="▶"; playerEl.classList.remove("playing");}
+        else if(e.data===YT.PlayerState.ENDED){nextSong();}
+      }
+    }
+  });
+}
+window.onYouTubeIframeAPIReady=onYouTubeIframeAPIReady;
+
+function playSongAt(i){
+  if(i<0||i>=songs.length)return;
+  songIndex=i; const s=songs[i];
+  document.getElementById("nowTitle").textContent=s.name;
+  document.getElementById("songMsg").textContent="« "+s.msg+" »";
+  document.getElementById("cover").style.backgroundImage=`url(https://i.ytimg.com/vi/${s.id}/mqdefault.jpg)`;
+  document.getElementById("player").classList.add("open");
+  renderSongs();
+  if(ytReady)ytPlayer.loadVideoById(s.id); else pendingSong=s.id;
+}
+function togglePlay(){if(!ytReady)return; if(ytPlayer.getPlayerState()===1)ytPlayer.pauseVideo(); else ytPlayer.playVideo();}
+function nextSong(){if(songIndex<0)return playSongAt(0); playSongAt((songIndex+1)%songs.length);}
+function prevSong(){if(songIndex<0)return playSongAt(0); playSongAt((songIndex-1+songs.length)%songs.length);}
+function seek(e){
+  if(!ytReady)return; const r=e.currentTarget.getBoundingClientRect();
+  const pct=(e.clientX-r.left)/r.width; const dur=ytPlayer.getDuration();
+  if(dur)ytPlayer.seekTo(pct*dur,true);
+}
+function fmt(t){t=Math.floor(t||0); return Math.floor(t/60)+":"+String(t%60).padStart(2,"0");}
+setInterval(()=>{
+  if(!ytReady)return;
+  const dur=ytPlayer.getDuration(), cur=ytPlayer.getCurrentTime();
+  if(dur){
+    document.getElementById("progFill").style.width=(cur/dur*100)+"%";
+    document.getElementById("curTime").textContent=fmt(cur);
+    document.getElementById("durTime").textContent=fmt(dur);
+  }
+},500);
+
+/* =================== CANVAS =================== */
+const canvas=document.getElementById("canvas"), ctx=canvas.getContext("2d");
+const cursorCv=document.getElementById("cursorCv"), cctx=cursorCv.getContext("2d");
+let W,H,CX,CY,DPR;
+function resize(){
+  DPR=Math.min(window.devicePixelRatio||1,2); W=innerWidth; H=innerHeight;
+  for(const c of [canvas,cursorCv]){c.width=W*DPR; c.height=H*DPR; c.style.width=W+"px"; c.style.height=H+"px";}
+  ctx.setTransform(DPR,0,0,DPR,0,0); cctx.setTransform(DPR,0,0,DPR,0,0);
+  CX=W/2; CY=H/2;
+}
+resize(); addEventListener("resize",resize);
+function hexToRgb(hex){const m=hex.replace("#",""); const n=parseInt(m.length===3?m.split("").map(c=>c+c).join(""):m,16); return {r:(n>>16)&255,g:(n>>8)&255,b:n&255};}
+
+/* =================== MOUSE =================== */
+addEventListener("mousemove",e=>{
+  mousePX=e.clientX; mousePY=e.clientY;
+  mouseTargetX=(e.clientX/W-0.5)*2;
+  mouseTargetY=(e.clientY/H-0.5)*2;
+});
+
+/* =================== ESTRELLAS + CONSTELACIÓN =================== */
+const stars=[];
+for(let i=0;i<140;i++)stars.push({x:Math.random(),y:Math.random(),s:Math.random()*1.4+.2,tw:Math.random()*Math.PI*2,sp:Math.random()*0.02+0.005});
+function drawStars(){
+  ctx.strokeStyle="rgba(255,143,184,0.07)"; ctx.lineWidth=0.5;
+  for(let i=0;i<stars.length;i++){
+    for(let j=i+1;j<i+5 && j<stars.length;j++){
+      const a=stars[i],b=stars[j];
+      const dx=(a.x-b.x)*W, dy=(a.y-b.y)*H;
+      const d=Math.hypot(dx,dy);
+      if(d<140){ctx.globalAlpha=(1-d/140)*0.35; ctx.beginPath(); ctx.moveTo(a.x*W,a.y*H); ctx.lineTo(b.x*W,b.y*H); ctx.stroke();}
+    }
+  }
+  for(const s of stars){
+    s.tw+=s.sp; const a=0.4+Math.sin(s.tw)*0.4;
+    ctx.globalAlpha=a; ctx.fillStyle=theme==="day"?"#ff8fb8":"#ffffff";
+    ctx.beginPath(); ctx.arc(s.x*W,s.y*H,s.s,0,Math.PI*2); ctx.fill();
+  }
+  ctx.globalAlpha=1;
+}
+
+/* =================== CORAZÓN + LETRA A + AYLA =================== */
+const HEART_COUNT=5500;
+const heartPts=[];
+class HP{constructor(){const t=Math.random()*Math.PI*2,r=0.85+Math.random()*0.15;
+  this.bx=16*Math.pow(Math.sin(t),3)*r;
+  this.by=(13*Math.cos(t)-5*Math.cos(2*t)-2*Math.cos(3*t)-Math.cos(4*t))*r;
+  this.bz=(Math.random()-0.5)*22;
+  this.x=this.bx; this.y=this.by; this.z=this.bz;
+  this.tx=this.bx; this.ty=this.by; this.tz=this.bz;
+  this.s=Math.random()*1.6+0.6; this.shade=0.55+Math.random()*0.45;}}
+for(let i=0;i<HEART_COUNT;i++)heartPts.push(new HP());
+
+function sampleTextPoints(text,font,W2,H2,step,scale){
+  const off=document.createElement("canvas"); off.width=W2; off.height=H2;
+  const o=off.getContext("2d");
+  o.fillStyle="#fff"; o.font=font; o.textAlign="center"; o.textBaseline="middle";
+  o.fillText(text,W2/2,H2/2);
+  const d=o.getImageData(0,0,W2,H2).data;
+  const pts=[];
+  for(let y=0;y<H2;y+=step)for(let x=0;x<W2;x+=step){
+    const i=(y*W2+x)*4;
+    if(d[i+3]>128) pts.push({x:(x-W2/2)/scale, y:-(y-H2/2)/scale});
+  }
+  return pts;
+}
+
+const aParticles=[];
+function generateA(){
+  const pts=sampleTextPoints("A","700 220px 'Dancing Script', cursive",200,240,3,14);
+  aParticles.length=0;
+  for(const p of pts) aParticles.push({bx:p.x,by:p.y,bz:(Math.random()-0.5)*6+2,
+    x:p.x,y:p.y,z:(Math.random()-0.5)*6+2, tx:p.x,ty:p.y,tz:(Math.random()-0.5)*6+2,
+    s:Math.random()*0.9+0.5, shade:0.7+Math.random()*0.3});
+}
+generateA(); if(document.fonts&&document.fonts.ready)document.fonts.ready.then(generateA);
+
+/* Generar puntos "Ayla" para el morph */
+let aylaPts=[];
+function generateAyla(){
+  aylaPts=sampleTextPoints("Ayla","700 180px 'Dancing Script', cursive",520,200,4,16);
+}
+generateAyla(); if(document.fonts&&document.fonts.ready)document.fonts.ready.then(generateAyla);
+
+function toggleAyla(){
+  aylaMode=!aylaMode;
+  if(aylaMode){
+    for(let i=0;i<heartPts.length;i++){
+      const p=heartPts[i]; const t=aylaPts[i%aylaPts.length];
+      p.tx=t.x+(Math.random()-0.5)*0.3;
+      p.ty=t.y+(Math.random()-0.5)*0.3;
+      p.tz=(Math.random()-0.5)*6;
+    }
+    showToast("Eres tú. Siempre tú. 💖");
+  } else {
+    for(const p of heartPts){p.tx=p.bx; p.ty=p.by; p.tz=p.bz;}
+  }
+}
+
+/* Triple click en A: easter egg */
+let aClicks=0, aClickT=0;
+addEventListener("click",e=>{
+  const dx=e.clientX-CX, dy=e.clientY-CY;
+  if(Math.hypot(dx,dy)<90){
+    const now=performance.now();
+    if(now-aClickT>800)aClicks=0;
+    aClicks++; aClickT=now;
+    if(aClicks===2){toggleAyla();}
+    if(aClicks===3){showToast("Mi secreto: contigo todo tiene sentido. 🌹",4000); aClicks=0;}
+  }
+});
+
+/* =================== POLEN + PÉTALOS + CORAZONCITOS =================== */
+const dust=[];
+for(let i=0;i<70;i++)dust.push({x:Math.random()*W,y:Math.random()*H,vx:(Math.random()-0.5)*0.15,vy:-Math.random()*0.3-0.05,s:Math.random()*1.6+0.4,a:Math.random()*0.6+0.2,tw:Math.random()*Math.PI*2});
+function drawDust(){
+  for(const d of dust){d.x+=d.vx; d.y+=d.vy; d.tw+=0.03;
+    if(d.y<-10){d.y=H+10; d.x=Math.random()*W;} if(d.x<-10)d.x=W+10; if(d.x>W+10)d.x=-10;
+    const a=d.a*(0.6+Math.sin(d.tw)*0.4);
+    ctx.globalAlpha=a; ctx.fillStyle=heartColor; ctx.shadowBlur=8; ctx.shadowColor=heartColor;
+    ctx.beginPath(); ctx.arc(d.x,d.y,d.s,0,Math.PI*2); ctx.fill();}
+  ctx.globalAlpha=1; ctx.shadowBlur=0;
+}
+
+const petals=[];
+function spawnPetal(){petals.push({x:Math.random()*W,y:-20,vy:Math.random()*0.6+0.3,vx:(Math.random()-0.5)*0.6,
+  rot:Math.random()*Math.PI*2,vr:(Math.random()-0.5)*0.04,sz:Math.random()*8+5,a:Math.random()*0.5+0.3,hue:Math.random()*30-15});}
+function drawPetals(){
+  if(Math.random()<0.15)spawnPetal();
+  for(let i=petals.length-1;i>=0;i--){const f=petals[i];
+    f.x+=f.vx+Math.sin(f.y*0.01)*0.3; f.y+=f.vy; f.rot+=f.vr;
+    if(f.y>H+30){petals.splice(i,1);continue;}
+    ctx.save(); ctx.translate(f.x,f.y); ctx.rotate(f.rot);
+    ctx.globalAlpha=f.a; ctx.fillStyle=`hsl(${340+f.hue},80%,70%)`;
+    ctx.beginPath(); ctx.ellipse(0,0,f.sz,f.sz*0.5,0,0,Math.PI*2); ctx.fill(); ctx.restore();}
+  ctx.globalAlpha=1;
+}
+
+const floaters=[];
+function spawnFloater(){floaters.push({x:Math.random()*W,y:H+20,vy:-(Math.random()*0.5+0.3),vx:(Math.random()-0.5)*0.2,sz:Math.random()*10+6,a:Math.random()*0.35+0.15});}
+function drawHeartShape(x,y,sz,color,alpha){ctx.save(); ctx.translate(x,y); ctx.scale(sz/30,sz/30);
+  ctx.globalAlpha=alpha; ctx.fillStyle=color; ctx.shadowBlur=12; ctx.shadowColor=color;
+  ctx.beginPath();
+  for(let t=0;t<Math.PI*2;t+=0.15){const px=16*Math.pow(Math.sin(t),3);
+    const py=-(13*Math.cos(t)-5*Math.cos(2*t)-2*Math.cos(3*t)-Math.cos(4*t));
+    if(t===0)ctx.moveTo(px,py); else ctx.lineTo(px,py);}
+  ctx.closePath(); ctx.fill(); ctx.restore();}
+function drawFloaters(){
+  if(Math.random()<0.06)spawnFloater();
+  for(let i=floaters.length-1;i>=0;i--){const f=floaters[i]; f.x+=f.vx; f.y+=f.vy;
+    if(f.y<-30){floaters.splice(i,1);continue;}
+    drawHeartShape(f.x,f.y,f.sz,heartColor,f.a);}
+  ctx.shadowBlur=0; ctx.globalAlpha=1;
+}
+
+/* =================== RIPPLES (onda al latir) =================== */
+const ripples=[];
+let lastBeatHigh=false;
+function spawnRipple(){ripples.push({r:30,a:0.7,life:1});}
+function drawRipples(){
+  for(let i=ripples.length-1;i>=0;i--){const r=ripples[i];
+    r.r+=4.5; r.a*=0.965; r.life-=0.012;
+    if(r.life<=0||r.a<0.02){ripples.splice(i,1);continue;}
+    ctx.strokeStyle=heartColor; ctx.globalAlpha=r.a; ctx.lineWidth=2;
+    ctx.shadowBlur=20; ctx.shadowColor=heartColor;
+    ctx.beginPath(); ctx.arc(CX,CY,r.r,0,Math.PI*2); ctx.stroke();}
+  ctx.globalAlpha=1; ctx.shadowBlur=0;
+}
+
+/* =================== LATIDO =================== */
+function heartbeat(t){const cycle=(t%1000)/1000;
+  const p1=Math.exp(-Math.pow((cycle-0.0)*9,2));
+  const p2=Math.exp(-Math.pow((cycle-0.22)*9,2))*0.7;
+  return p1+p2;
+}
+
+/* =================== CURSOR PERSONALIZADO =================== */
+const cursorTrail=[];
+function drawCursor(){
+  cctx.clearRect(0,0,W,H);
+  cursorTrail.push({x:mousePX,y:mousePY,a:1});
+  if(cursorTrail.length>12)cursorTrail.shift();
+  for(let i=0;i<cursorTrail.length;i++){
+    const t=cursorTrail[i]; t.a*=0.85;
+    const sz=3+i*0.5;
+    cctx.globalAlpha=t.a*0.6; cctx.fillStyle=heartColor;
+    cctx.shadowBlur=10; cctx.shadowColor=heartColor;
+    cctx.beginPath(); cctx.arc(t.x,t.y,sz,0,Math.PI*2); cctx.fill();
+  }
+  cctx.globalAlpha=1; cctx.shadowBlur=18; cctx.shadowColor=heartColor;
+  cctx.save(); cctx.translate(mousePX,mousePY); cctx.scale(0.45,0.45);
+  cctx.fillStyle=heartColor; cctx.beginPath();
+  for(let t=0;t<Math.PI*2;t+=0.15){const px=16*Math.pow(Math.sin(t),3);
+    const py=-(13*Math.cos(t)-5*Math.cos(2*t)-2*Math.cos(3*t)-Math.cos(4*t));
+    if(t===0)cctx.moveTo(px,py); else cctx.lineTo(px,py);}
+  cctx.closePath(); cctx.fill(); cctx.restore();
+  cctx.shadowBlur=0;
+}
+
+/* =================== GUARDAR PNG =================== */
+function savePNG(){
+  const out=document.createElement("canvas"); out.width=canvas.width; out.height=canvas.height;
+  const o=out.getContext("2d"); o.drawImage(canvas,0,0);
+  const a=document.createElement("a"); a.download="love-heart-ayla.png";
+  a.href=out.toDataURL("image/png"); a.click();
+  showToast("Imagen guardada 💖");
+}
+
+/* =================== ANIMACIÓN =================== */
+let rot=0;
+function animate(now){
+  requestAnimationFrame(animate);
+
+  mouseX += (mouseTargetX-mouseX)*0.06;
+  mouseY += (mouseTargetY-mouseY)*0.06;
+
+  const bg=hexToRgb(bgColor);
+  ctx.fillStyle=`rgba(${bg.r},${bg.g},${bg.b},0.35)`;
+  ctx.fillRect(0,0,W,H);
+
+  drawStars();
+  drawPetals();
+  drawFloaters();
+
+  rot+=0.006;
+  const beat=heartbeat(now);
+
+  const beatHigh=beat>0.85;
+  if(beatHigh && !lastBeatHigh && beatStrength>0.1) spawnRipple();
+  lastBeatHigh=beatHigh;
+  drawRipples();
+
+  const scaleBase=aylaMode?14:18;
+  const scale=scaleBase*(1+beat*0.13*beatStrength);
+  const glow=22+beat*50*beatStrength;
+
+  const hc=hexToRgb(heartColor), lc=hexToRgb(letterColor);
+  const yaw   = rot + mouseX*0.6;
+  const pitch = mouseY*0.5;
+  const cy=Math.cos(yaw),sy=Math.sin(yaw),cp=Math.cos(pitch),sp=Math.sin(pitch);
+
+  function project(x,y,z){
+    let rx=x*cy - z*sy;
+    let rz=x*sy + z*cy;
+    let ry=y*cp - rz*sp;
+    let rz2=y*sp + rz*cp;
+    const persp=500/(500-rz2);
+    return {sx:CX+rx*persp*scale, sy:CY-ry*persp*scale, rz:rz2, persp};
+  }
+
+  ctx.shadowBlur=glow*0.4; ctx.shadowColor=heartColor;
+  for(let i=0;i<heartPts.length;i++){
+    const p=heartPts[i];
+    p.x += (p.tx-p.x)*0.06;
+    p.y += (p.ty-p.y)*0.06;
+    p.z += (p.tz-p.z)*0.06;
+
+    const pr=project(p.x,p.y,p.z);
+    const sz=p.s*pr.persp;
+    const depthA=(0.55+(pr.rz+15)/40)*p.shade;
+    const a=Math.max(0.1,Math.min(1,depthA*(0.75+beat*0.25*beatStrength)));
+    ctx.globalAlpha=a; ctx.fillStyle=`rgb(${hc.r},${hc.g},${hc.b})`;
+    ctx.beginPath(); ctx.arc(pr.sx,pr.sy,sz,0,Math.PI*2); ctx.fill();
+  }
+
+  ctx.globalAlpha=1; ctx.shadowBlur=0;
+  if(!aylaMode){
+    const coreR=60+beat*60*beatStrength;
+    const grad=ctx.createRadialGradient(CX,CY,0,CX,CY,coreR);
+    grad.addColorStop(0,`rgba(${hc.r},${hc.g},${hc.b},${0.45+beat*0.3*beatStrength})`);
+    grad.addColorStop(1,`rgba(${hc.r},${hc.g},${hc.b},0)`);
+    ctx.fillStyle=grad; ctx.fillRect(CX-coreR,CY-coreR,coreR*2,coreR*2);
+  }
+
+  if(!aylaMode){
+    ctx.shadowBlur=14+beat*22*beatStrength; ctx.shadowColor=letterColor;
+    ctx.fillStyle=`rgb(${lc.r},${lc.g},${lc.b})`;
+    for(let i=0;i<aParticles.length;i++){
+      const p=aParticles[i];
+      const pr=project(p.x,p.y,p.z);
+      const sz=p.s*pr.persp;
+      const depthA=(0.65+(pr.rz+5)/15)*p.shade;
+      const a=Math.max(0.25,Math.min(1,depthA*(0.8+beat*0.2*beatStrength)));
+      ctx.globalAlpha=a;
+      ctx.beginPath(); ctx.arc(pr.sx,pr.sy,sz,0,Math.PI*2); ctx.fill();
+    }
+  }
+
+  ctx.globalAlpha=1; ctx.shadowBlur=0;
+  drawDust();
+
+  drawCursor();
+}
+requestAnimationFrame(animate);
+
+addEventListener("keydown",e=>{if(e.key==="Escape"){closeLetter(); closeSupport(); if(aylaMode)toggleAyla();}});
+
+setTimeout(()=>showToast("Doble click en el corazón para algo especial 💕",4500),1500);
+</script>
+<script defer="" src="./Love Heart — Para Ayla 💖_files/v8c78df7c7c0f484497ecbca7046644da1771523124516" integrity="sha512-8DS7rgIrAmghBFwoOTujcf6D9rXvH8xm8JQ1Ja01h9QX8EzXldiszufYa4IFfKdLUKTTrnSFXLDkUEOTrZQ8Qg==" data-cf-beacon="{&quot;version&quot;:&quot;2024.11.0&quot;,&quot;token&quot;:&quot;7f7b0fd8732c4326aae4b9d58d5c514a&quot;,&quot;server_timing&quot;:{&quot;name&quot;:{&quot;cfCacheStatus&quot;:true,&quot;cfEdge&quot;:true,&quot;cfExtPri&quot;:true,&quot;cfL4&quot;:true,&quot;cfOrigin&quot;:true,&quot;cfSpeedBrain&quot;:true},&quot;location_startswith&quot;:null}}" crossorigin="anonymous"></script>
+
+
+</body></html>
